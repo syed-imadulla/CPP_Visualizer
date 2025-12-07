@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Code Visualizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material-darker.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-code"></i>
+                <span>C++ Visualizer</span>
+            </div>
+            <div class="nav-controls">
+                <button class="nav-btn" id="newBtn">
+                    <i class="fas fa-file"></i>
+                    <span>New</span>
+                </button>
+                <button class="nav-btn" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    <span>Save</span>
+                </button>
+                <button class="nav-btn" id="loadBtn">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Load</span>
+                </button>
+                <div class="nav-divider"></div>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                    <span>Theme</span>
+                </button>
+                <button class="nav-btn" id="helpBtn">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel: Code Editor -->
+            <div class="panel left-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-edit"></i>
+                        <h2>Code Editor</h2>
+                    </div>
+                    <div class="panel-actions">
+                        <select class="lang-select" id="langSelect">
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                        </select>
+                        <button class="icon-btn" id="formatBtn" title="Format Code">
+                            <i class="fas fa-broom"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <textarea id="codeEditor" placeholder="// Write your C++ code here..."></textarea>
+                </div>
+                <div class="editor-controls">
+                    <button class="control-btn primary" id="runBtn">
+                        <i class="fas fa-play"></i>
+                        Run Code
+                    </button>
+                    <button class="control-btn secondary" id="visualizeBtn">
+                        <i class="fas fa-eye"></i>
+                        Visualize
+                    </button>
+                    <button class="control-btn outline" id="debugBtn">
+                        <i class="fas fa-bug"></i>
+                        Debug
+                    </button>
+                    <div class="control-group">
+                        <button class="icon-btn small" id="zoomInBtn" title="Zoom In">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="icon-btn small" id="zoomOutBtn" title="Zoom Out">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Visual Output -->
+            <div class="panel right-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-project-diagram"></i>
+                        <h2>Visual Output</h2>
+                    </div>
+                    <div class="view-tabs">
+                        <button class="view-tab active" data-view="structure">
+                            <i class="fas fa-sitemap"></i>
+                            Structure
+                        </button>
+                        <button class="view-tab" data-view="memory">
+                            <i class="fas fa-memory"></i>
+                            Memory
+                        </button>
+                        <button class="view-tab" data-view="flow">
+                            <i class="fas fa-stream"></i>
+                            Flow
+                        </button>
+                        <button class="view-tab" data-view="console">
+                            <i class="fas fa-terminal"></i>
+                            Console
+                        </button>
+                    </div>
+                </div>
+
+                <div class="visual-container">
+                    <!-- Structure View -->
+                    <div class="view-content active" id="structureView">
+                        <div class="placeholder">
+                            
+                            <h3>Class Structure</h3>
+                            <p>Visual representation of classes, methods, and relationships</p>
+                            <div class="placeholder-grid">
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memory View -->
+                    <div class="view-content" id="memoryView">
+                        <div class="placeholder">
+                            
+                            <h3>Memory Layout</h3>
+                            <p>Object memory allocation and pointer visualization</p>
+                            <div class="memory-placeholder">
+                                <div class="memory-block"></div>
+                                <div class="memory-block"></div>
+                                <div class="memory-block"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flow View -->
+                    <div class="view-content" id="flowView">
+                        <div class="placeholder">
+                            
+                            <h3>Execution Flow</h3>
+                            <p>Step-by-step program execution visualization</p>
+                            <div class="flow-placeholder">
+                                <div class="flow-step"></div>
+                                <div class="flow-step"></div>
+                                <div class="flow-step"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Console View -->
+                    <div class="view-content" id="consoleView">
+                        <div class="console-header">
+                            <span>Output Console</span>
+                            <button class="icon-btn small" id="clearConsoleBtn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="console-output" id="consoleOutput">
+                            <div class="console-line">// Output will appear here...</div>
+                            <div class="console-line">> Ready to execute code</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span class="status-item">
+                    <i class="fas fa-code-branch"></i>
+                    <span id="lineCount">Lines: 0</span>
+                </span>
+                <span class="status-item">
+                    <i class="fas fa-keyboard"></i>
+                    <span id="charCount">Chars: 0</span>
+                </span>
+                <span class="status-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Ready</span>
+                </span>
+            </div>
+            <div class="status-right">
+                <span class="status-item">
+                    <i class="fas fa-server"></i>
+                    <span id="connectionStatus">Connected</span>
+                </span>
+                <span class="status-item">
+                    <i class="fas fa-cube"></i>
+                    <span id="objectCount">Objects: 0</span>
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
