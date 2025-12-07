@@ -207,22 +207,6 @@ body {
     gap: 10px;
 }
 
-.lang-select {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 8px 15px;
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.lang-select:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
 .icon-btn {
     width: 36px;
     height: 36px;

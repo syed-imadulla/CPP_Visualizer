@@ -1,6 +1,5 @@
 // Initialize CodeMirror
 const codeEditor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-    mode: 'text/x-c++src',
     theme: 'default',
     lineNumbers: true,
     indentUnit: 4,
